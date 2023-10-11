@@ -24,6 +24,12 @@
     <ClCompile Include="Vehical.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DemandGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChargingStation.h">
@@ -33,6 +39,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vehical.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemandGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

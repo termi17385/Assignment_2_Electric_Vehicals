@@ -21,6 +21,6 @@ const int MIN_CAPACITY = 350;
 
 const int MAX_CAPACITY = 550;
 
-const int MIN_REMAIN_RANGE = 300;
+const int MIN_REMAIN_RANGE = 300;	
 
 #endif /* CONSTANT_H_ */

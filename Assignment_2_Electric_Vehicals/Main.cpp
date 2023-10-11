@@ -1,8 +1,9 @@
-#include<vector>
-#include<iostream>
 #include"ChargingStation.h"
+#include<iostream>
 #include<iomanip>
-#include<unordered_map>
+#include<vector>
+#include "Vehical.h"
+#include "DemandGenerator.h"
 
 using namespace std;
 
@@ -12,64 +13,13 @@ void initialiseStations();
 void displayAllStations();
 #pragma endregion
 
-int calculateFarthestCity(int _destination, int _remaining)
-{
-	int next = 0; // start at syd
-	int capacity = _remaining; // remainingCapactiy
-	bool outOfFuel = false;
 
-	int count = 0;
-
-	int ans = 0;
-
-	cout << ans << endl;
-
-	if (capacity >= ans) return _destination;
-
-	do
-	{
-		count++;
-		int distance = distanceMap[next + 1];
-
-		if (capacity >= distance)
-		{
-			next++;
-			
-			capacity -= distance;
-
-			cout << "Remaining Distance: " + distance << endl;
-		}
-
-		else
-		{
-			outOfFuel = true;
-			continue;
-		}
-
-	} while (!outOfFuel || count < NUM_CITIES);
-
-	return next;
-}
-
-int calculateFarthestCity(int _remaining, int _index)
-{
-	if (_remaining >= ChargingStation::distanceToSydney(2))
-		return 2;
-
-	int next = _index;
-
-	int distance = distanceMap[next + 1];
-
-	if (_remaining < distance) return next;
-
-	return testFunction(_remaining - distance, next + 1);
-}
 
 int main()
 {
-	cout << calculateFarthestCity(90, 0);
-}
-
+	DemandGenerator dg;
+	dg.writeDemands(MAX_DEMANDS);
+}	
 
 #pragma region Station Definitions
 void initialiseStations()
@@ -79,6 +29,7 @@ void initialiseStations()
 		stations.push_back(ChargingStation(i));
 	}
 }
+
 void displayAllStations()
 {
 	std::cout << setw(22) << "City ID";
