@@ -1,12 +1,16 @@
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
+#include <filesystem>
+#include <fstream>
 
 #include "DemandGenerator.h"
 #include "Constants.h"
 #include "Math.h"
-#include <fstream>
+
 using namespace std;
+
+namespace fs = filesystem;
 
 int DemandGenerator::getVehicleId()				{ return vehicleId++; }
 int DemandGenerator::getRandomDestination()		{ return Math::randomRange(1, NUM_CITIES); }
@@ -36,20 +40,27 @@ void DemandGenerator::writeDemands(int _amountOfDemands)
 
 	if (chargingDemands.is_open())
 	{
-		chargingDemands.flush(); 
+		chargingDemands.flush();
+		
 		for (int i = 0; i < _amountOfDemands; i++)
 		{
 			std::string demand = getDemand();
-
 			chargingDemands << demand << endl;
 		}
-		s
+		
 		chargingDemands.close();
 
-		cout << endl << "Demands Successfully Written To: " << "dadw" << endl;
+		cout << endl << "File Successfully Written To" << endl;
 	}
 	else
 	{
 		cout << endl << "ERROR OPENING FILE" << endl;
 	}
+}
+
+void DemandGenerator::displayFileLocation()
+{
+	fs::path workingDirectory = fs::current_path();
+
+	cout << endl << "Charging Demands Location:\n\n" << workingDirectory << "\\" << DEMANDS_PATH << endl;
 }

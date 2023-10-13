@@ -14,7 +14,7 @@ private:
 public:
 
 	int calculateFarthestCity(int _remaining, int _currentCity);
-	int determineFarthestCity(int _newCity = 0, bool _recharged = false);
+	int determineFarthestCity();
 	
 	void setDestinationID(int _newDestination) { destinationId = _newDestination; }
 	

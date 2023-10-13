@@ -22,4 +22,6 @@ private:
 public:
 
 	void writeDemands(int _amountOfDemands);
+
+	static void displayFileLocation();
 };

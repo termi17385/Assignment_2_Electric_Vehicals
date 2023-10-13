@@ -21,11 +21,8 @@ int Vehical::calculateFarthestCity(int _remaining, int _currentCity)
 	return calculateFarthestCity(_remaining - distance, next + 1);
 }
 
-int Vehical::determineFarthestCity(int _newCity, bool _recharged)
+int Vehical::determineFarthestCity()
 {
-	// first we check if the vehicle is being recharged to determine a reset
-	if (_recharged) reset(_newCity);
-
 	int amount = 0;
 
 	// then we determine if the battery level is high enough to reach the next city
@@ -37,5 +34,9 @@ int Vehical::determineFarthestCity(int _newCity, bool _recharged)
 	if (remainRange > amount) return destinationId;
 
 	// If it is not, then we return the farthest station for recharge.
-	return calculateFarthestCity(remainRange, currentCityId);
+	int rechargeStation = calculateFarthestCity(remainRange, currentCityId);
+
+	reset(rechargeStation);
+
+	return rechargeStation;
 }

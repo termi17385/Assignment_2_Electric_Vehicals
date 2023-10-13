@@ -9,6 +9,9 @@
 /// <param name="b">the range</param>
 int Math::randomRange(int a, int b)
 {
+	if (a == b) return a;
+
 	int range = b - a;
+
 	return a + (rand() % range);
 }
