@@ -13,6 +13,12 @@ private:
 
 public:
 
+	int getCurrentCityID()	{ return currentCityId; }
+	int getVehicleID()		{ return vehicleId;		}
+	int getDestinationID()	{ return destinationId; }
+	int getCapacityRange()	{ return capacityRange; }
+	int getRemainingRange() { return remainRange;	}
+
 	int calculateFarthestCity(int _remaining, int _currentCity);
 	int determineFarthestCity();
 	
@@ -20,4 +26,6 @@ public:
 	
 	Vehical(int currentCityId, int vehicleId, int destinationId, int capacityRange, int remainRange)
 		: currentCityId(currentCityId), vehicleId(vehicleId), destinationId(destinationId), capacityRange(capacityRange), remainRange(remainRange) {}
+
+	Vehical() = default;
 };

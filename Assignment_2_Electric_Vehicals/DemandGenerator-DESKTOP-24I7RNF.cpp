@@ -1,26 +1,20 @@
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
-#include <filesystem>
-#include <fstream>
 
 #include "DemandGenerator.h"
 #include "Constants.h"
 #include "Math.h"
-
+#include <fstream>
 using namespace std;
 
-namespace fs = filesystem;
-
-int DemandGenerator::getVehicleId()				{ return ++vehicleId; }
+int DemandGenerator::getVehicleId()				{ return vehicleId++; }
 int DemandGenerator::getRandomDestination()		{ return Math::randomRange(1, NUM_CITIES); }
 int DemandGenerator::getRandomCapacity()		{ return Math::randomRange(MIN_CAPACITY, MAX_CAPACITY); }
-int DemandGenerator::getRemainRange(int _cap)	{ return Math::randomRange(MIN_REMAIN_RANGE, _cap); }
+int DemandGenerator::getRemainRange(int _cap)	{ return Math::randomRange(MIN_CAPACITY, _cap); }
 
 std::string DemandGenerator::getDemand()
 {
-	std::srand(time(nullptr));
-
 	int vehicleId		= getVehicleId();
 	int destinationId	= getRandomDestination();
 	int capacityRange	= getRandomCapacity();
@@ -42,27 +36,20 @@ void DemandGenerator::writeDemands(int _amountOfDemands)
 
 	if (chargingDemands.is_open())
 	{
-		chargingDemands.flush();
-		
-		for (int i = 0; i < _amountOfDemands + 1; i++)
+		chargingDemands.flush(); 
+		for (int i = 0; i < _amountOfDemands; i++)
 		{
 			std::string demand = getDemand();
+
 			chargingDemands << demand << endl;
 		}
-		
+
 		chargingDemands.close();
 
-		cout << endl << "File Successfully Written To" << endl;
+		cout << endl << "Demands Successfully Written To: " << "dadw" << endl;
 	}
 	else
 	{
 		cout << endl << "ERROR OPENING FILE" << endl;
 	}
-}
-
-void DemandGenerator::displayFileLocation()
-{
-	fs::path workingDirectory = fs::current_path();
-
-	cout << endl << "Charging Demands Location:\n\n" << workingDirectory << "\\" << DEMANDS_PATH << endl;
 }

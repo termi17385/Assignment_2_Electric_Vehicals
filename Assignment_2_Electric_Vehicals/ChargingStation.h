@@ -22,13 +22,14 @@ public:
 
 	static int distanceToSydney(int _cityId);
 	static int distanceToCurrentCity(int _currentCityID, int _destinationID);
-
-	void diplayInformation();
-
 private:
 	
 	int cityId;
 	std::string cityName;
 	int distanceToLastCity;
 	int numberOfChargers;
+
+public:
+
+	ChargingStation() = default;
 };

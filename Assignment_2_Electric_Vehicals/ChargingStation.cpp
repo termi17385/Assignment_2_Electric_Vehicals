@@ -2,13 +2,6 @@
 #include <iostream>
 #include <iomanip>
 
-void ChargingStation::diplayInformation()
-{
-    std::cout << std::setw(20) << cityId;
-    std::cout << std::setw(20) << cityName;
-    std::cout << std::setw(20) << distanceToLastCity;
-    std::cout << std::setw(20) << numberOfChargers << "\n";
-}
 int ChargingStation::distanceToSydney(int _cityId)
 {
     if (_cityId <= 0) return 0;
