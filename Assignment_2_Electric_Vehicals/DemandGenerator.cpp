@@ -19,8 +19,6 @@ int DemandGenerator::getRemainRange(int _cap)	{ return Math::randomRange(MIN_REM
 
 std::string DemandGenerator::getDemand()
 {
-	std::srand(time(nullptr));
-
 	int vehicleId		= getVehicleId();
 	int destinationId	= getRandomDestination();
 	int capacityRange	= getRandomCapacity();

@@ -74,6 +74,21 @@ void ChargingAllocation::outputValues(int& _destId, int& _cap, int& _remain, int
 	_rechargeId = v->determineFarthestCity();
 }
 
+float ChargingAllocation::calculatOverallWaitTime()
+{
+	float sum = 0;
+	for (int i = 0; i < NUM_CITIES; i++)
+	{
+		int qi = stations[i].queueLength;
+		float ti = stations[i].waitingHours;
+		
+		sum = (sum + (qi * ti));
+	}
+
+
+	return (1.0f/ totalQueued) * sum;
+}
+
 void ChargingAllocation::determineRechargeStations()
 {
 	// if the vehicle does not need to recharge remove the vehicle
@@ -89,6 +104,7 @@ void ChargingAllocation::determineRechargeStations()
 		outputValues(destId, cap, remain, rechargeId, i);
 
 		if (rechargeId == destId) continue;
+		totalQueued++;
 		
 		// Remove non pending vehicle ?
 		//pendingVehicles.erase(pendingVehicles.begin() + i);
@@ -102,6 +118,7 @@ void ChargingAllocation::determineRechargeStations()
 		outputValues(destId, cap, remain, rechargeId, i);
 
 		if (rechargeId == destId) continue;
+		totalQueued++;
 
 		q->secondRechargeId = rechargeId;
 		
@@ -143,7 +160,12 @@ void ChargingAllocation::displayAllStationQueues(int _amt, bool _queued)
 
 	if (_amt > NUM_CITIES) _amt = NUM_CITIES;
 	for (int i = 0; i < _amt; i++)
-		getStationQueue(i).displayQueueInformation(_queued);
+	{
+		// Temp convert to pointer, modify then store back to override
+		StationQueues* station = &stations[i];
+		station->displayQueueInformation(_queued);
+		stations[i] = *station;
+	}
 }
 
 void ChargingAllocation::displayAllQueuedVehicles()
@@ -159,6 +181,21 @@ void ChargingAllocation::displayAllQueuedVehicles()
 	size_t size = queuedVehicles.size();
 	for (int i = 0; i < size; i++) 
 	queuedVehicles[i].displayVehicleRecharge();
+}
+
+void ChargingAllocation::displayAllVehiclesInformation()
+{
+	std::cout << std::setw(5) << "Vehicle Id"
+		<< std::setw(20) << "Origin"
+		<< std::setw(20) << "Destination"
+		<< std::setw(20) << "Capacity Range"
+		<< std::setw(20) << "Remaining Range"
+		<< std::endl;
+
+	for (int i = 0; i < queuedVehicles.size(); i++)
+	{
+		queuedVehicles[i].vehicle.displayVehicleInformation();
+	}
 }
 
 /*std::cout << "Vehicle Id" << std::setw(20) << "Destination Id" << std::setw(20)

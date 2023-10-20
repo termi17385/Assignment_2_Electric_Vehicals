@@ -1,6 +1,8 @@
 #include "Vehical.h"
 #include "Constants.h"
 #include "ChargingStation.h"
+#include <iostream>
+#include <iomanip>
 
 void Vehical::reset(int _newCity)
 {
@@ -39,4 +41,14 @@ int Vehical::determineFarthestCity()
 	reset(rechargeStation);
 
 	return rechargeStation;
+}
+
+void Vehical::displayVehicleInformation()
+{
+	std::cout << std::setw(5) << getVehicleID()
+		<< std::setw(20) << nameMap[currentCityId]
+		<< std::setw(20) << nameMap[destinationId]
+		<< std::setw(20) << capacityRange
+		<< std::setw(20) << remainRange
+		<< std::endl;
 }

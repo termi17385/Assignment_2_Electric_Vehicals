@@ -20,7 +20,6 @@ const size_t LINE_SIZE = 4;
 	avg. wait time = 0.5 x (queueLength / numberOfChargers)
 */
 
-
 struct QueuedVehicle
 {
 	Vehical vehicle;
@@ -67,12 +66,13 @@ struct StationQueues
 {
 	ChargingStation station;
 	int queueLength = 0;
+	float waitingHours = 0;
 
 	void displayQueueInformation(bool _queued)
 	{
 		int numChargers = station.getNumChargers();
 		int distToSyd = ChargingStation::distanceToSydney(station.getID());
-		float waitingHours = Math::calculateAverageWaitTime(queueLength, numChargers);
+		waitingHours = Math::calculateAverageWaitTime(queueLength, numChargers);
 
 		std::cout << std::setw(5) << station.getID()
 			<< std::setw(20) << station.getName()
@@ -99,6 +99,7 @@ class ChargingAllocation
 private:
 	StationQueues stations[NUM_CITIES];
 	std::vector<QueuedVehicle> queuedVehicles; 
+	int totalQueued = 0;
 
 #pragma region Init
 	int* convertLineToIntArray(std::string _line);
@@ -124,4 +125,6 @@ public:
 	// parameter for debugging
 	void displayAllStationQueues(int _amt = NUM_CITIES, bool _queued = true);
 	void displayAllQueuedVehicles();
+	void displayAllVehiclesInformation();
+	float calculatOverallWaitTime();
 };

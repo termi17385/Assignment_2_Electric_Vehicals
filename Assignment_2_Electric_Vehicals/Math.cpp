@@ -24,3 +24,4 @@ float Math::calculateAverageWaitTime(int a, int b)
 	if (a == 0) return 0.00f;
 	else return 0.5f * ((float)a / (float)b);
 }
+
